@@ -1,10 +1,11 @@
+require("dotenv").config();
 const express=require('express')
 const mongoose=require('mongoose')
 const userRoute=require('./routes/user')
 const blogRouter=require('./routes/blogs')
 const cookieParser=require('cookie-parser')
 const {restrictToLoggedInOnly}=require('./middleware/auth')
-mongoose.connect("mongodb://127.0.0.1:27017/blogit").then(()=> console.log("MongoDB connected succesfully")).catch((err)=>console.log(err))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB connected successfully")).catch((err) =>console.log(err));
 const app=express();
 app.use(cookieParser())
 app.use(express.json())
@@ -13,6 +14,7 @@ app.use("/uploads",express.static("uploads"));
 app.set('view engine','ejs')
 app.use(userRoute)
 app.use('/',restrictToLoggedInOnly,blogRouter)
-app.listen(3000,()=>{
-    console.log("Server running succesfully")
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
