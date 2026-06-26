@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= thisBlog.title %> | Blog!T
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <h1 class="mb-4">Blog!T</h1>
+    <div class="mb-4">
+        <a href="/add" class="btn btn-primary">
+            Create New Blog
+        </a>
+        <a href="/myblogs" class="btn btn-secondary">
+            My Blogs
+        </a>
+
+        <form action="/logout" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">
+                Logout
+            </button>
+        </form>
+    </div>
+    <div class="card mb-3">
+        <img src="<%= thisBlog.coverImage %>" class="card-img-top img-fluid" alt="Blog Image"
+            style="height:400px; object-fit:cover; object-position:center;">
+        <div class="card-body">
+            <h3 class="card-title">
+                <%= thisBlog.title %>
+            </h3>
+            <p class="text-muted mb-1">
+                Posted:
+                <%= thisBlog.createdAt.toLocaleString("en-IN", { dateStyle: "long" , timeStyle: "short" }) %>
+            </p>
+
+            <% if (thisBlog.updatedAt.getTime() !==thisBlog.createdAt.getTime()) { %>
+                <p class="text-muted">
+                    Last updated:
+                    <%= thisBlog.updatedAt.toLocaleString("en-IN", { dateStyle: "long" , timeStyle: "short" }) %>
+                </p>
+                <% } %>
+                    <hr>
+                    <p class="text-muted mb-3">
+                        Written by <strong>
+                            <%= thisBlog.createdBy.name %>
+                        </strong>
+                    </p>
+                    <p class="card-text">
+                        <%= thisBlog.content %>
+                    </p>
+                    <a href="/" class="btn btn-secondary">
+                        GO BACK TO HOME
+                    </a>
+                    <% if (thisBlog.createdBy._id.toString()===user._id.toString()) { %>
+                        <a href="/edit/<%= thisBlog._id %>" class="btn btn-warning">Edit</a>
+                        <form action="/delete/<%= thisBlog._id %>" method="POST" class="d-inline">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        <% } %>
+        </div>
+    </div>
+</body>
+
+</html>

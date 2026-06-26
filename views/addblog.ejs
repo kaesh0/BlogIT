@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h1 class="mb-4">CREATE A NEW BLOG</h1>
+    <form
+        action="/add"
+        method="POST"
+        enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">TITLE</label>
+            <input
+                type="text"
+                name="title"
+                id="title"
+                class="form-control"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">CONTENT</label>
+            <textarea
+                name="content"
+                id="content"
+                rows="6"
+                class="form-control"
+                required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="coverImage" class="form-label">
+                BLOG COVER IMAGE
+            </label>
+            <input
+                type="file"
+                name="coverImage"
+                id="coverImage"
+                class="form-control"
+                required>
+        </div>
+        <button
+            type="submit"
+            class="btn btn-primary">
+            CREATE BLOG
+        </button>
+    </form>
+    <a href="/" class="btn btn-secondary">
+        GO BACK TO HOME
+    </a>
+
+</body>
+</html>
